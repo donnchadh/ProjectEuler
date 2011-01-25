@@ -1,13 +1,13 @@
 package org.donnchadh.projecteuler.primes;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 public class PrimeGenerator implements Iterable<Long> {
     final List<Long> primes = new ArrayList<Long>();
+    
+    private long lastPrime = 1;
     
     private PrimeGenerator() {
     }
@@ -15,8 +15,6 @@ public class PrimeGenerator implements Iterable<Long> {
     public java.util.Iterator<Long> primes() {
         return new java.util.Iterator<Long>() {
             
-            private long lastPrime = 1;
-
             @Override
             public boolean hasNext() {
                 return true;
@@ -24,27 +22,7 @@ public class PrimeGenerator implements Iterable<Long> {
 
             @Override
             public Long next() {
-                long next = lastPrime;
-                while (!isPrime(++next)) {
-                    ;
-                }
-                lastPrime = next;
-                Long result = Long.valueOf(lastPrime);
-                primes.add(result);
-                return result;
-            }
-
-            private boolean isPrime(long l) {
-                long midpoint = (long) Math.sqrt(l);
-                for (Long prime : primes) {
-                    if ((l % prime.longValue()) == 0) {
-                        return false;
-                    }
-                    if (prime.longValue() > midpoint) {
-                        return true;
-                    }
-                }
-                return true;
+                return nextPrime();
             }
 
             @Override
@@ -55,6 +33,19 @@ public class PrimeGenerator implements Iterable<Long> {
         };
     }
 
+    Long nextPrime() {
+        long next = lastPrime;
+        while (!isPrime(++next)) {
+            ;
+        }
+        lastPrime = next;
+        Long result = Long.valueOf(lastPrime);
+        if (primes.isEmpty() || lastPrime > primes.get(primes.size() -1) .longValue()) {
+            primes.add(result);
+        }
+        return result;
+    }
+    
     public static PrimeGenerator instance() {
         return new PrimeGenerator();
     }
@@ -64,6 +55,29 @@ public class PrimeGenerator implements Iterable<Long> {
         return primes();
     }
     
+    public List<Long> getPrimes() {
+        return primes;
+    }
+    
+    public boolean isPrime(long l) {
+        if (l <= 3) {
+            return true;
+        }
+        long midpoint = (long) Math.sqrt(l);
+        while (primes.get(primes.size() -1).longValue() < midpoint) {
+            nextPrime();
+        }
+        for (Long prime : primes) {
+            if ((l % prime.longValue()) == 0) {
+                return false;
+            }
+            if (prime.longValue() > midpoint) {
+                return true;
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         for (Long prime : instance()) {
             System.out.println(prime);
