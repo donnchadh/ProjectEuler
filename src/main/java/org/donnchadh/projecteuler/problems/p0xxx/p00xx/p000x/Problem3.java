@@ -2,7 +2,7 @@ package org.donnchadh.projecteuler.problems.p0xxx.p00xx.p000x;
 
 import org.donnchadh.projecteuler.primes.PrimeGenerator;
 
-public class Problem2 {
+public class Problem3 {
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
         long remainingNumber = 600851475143L;
