@@ -16,8 +16,8 @@ public class Problem169 {
 //        System.out.println(countPermutations(BigInteger.valueOf(6)));
 //        System.out.println(countPermutations(BigInteger.valueOf(7)));
 //        System.out.println(countPermutations(BigInteger.valueOf(8)));
-        System.out.println(countPermutations(BigInteger.valueOf(9)));
-        System.out.println(countPermutations(BigInteger.TEN));
+        System.out.println(countPermutations3(BigInteger.valueOf(9)));
+        System.out.println(countPermutations3(BigInteger.TEN));
 //        System.out.println(countPermutations(BigInteger.valueOf(11)));
 //        System.out.println(countPermutations(BigInteger.valueOf(12)));
 //        System.out.println(countPermutations(BigInteger.valueOf(13)));
@@ -28,10 +28,35 @@ public class Problem169 {
 //        System.out.println(countPermutations(BigInteger.valueOf(30)));
 //        System.out.println(countPermutations(BigInteger.valueOf(40)));
 //        System.out.println(countPermutations(BigInteger.valueOf(30)));
-        System.out.println(countPermutations(BigInteger.TEN.pow(2)));
-        System.out.println(countPermutations(BigInteger.TEN.pow(3)));
-        System.out.println(countPermutations(BigInteger.TEN.pow(4)));
-//        System.out.println(countPermutations(TEN.pow(25)));
+        System.out.println(countPermutations3(BigInteger.TEN.pow(2)));
+        System.out.println(countPermutations3(BigInteger.TEN.pow(3)));
+        System.out.println(countPermutations3(BigInteger.TEN.pow(4)));
+        System.out.println(countPermutations3(BigInteger.TEN.pow(10)));
+        System.out.println(countPermutations3(BigInteger.TEN.pow(15)));
+        System.out.println(countPermutations3(BigInteger.TEN.pow(20)));
+        System.out.println(countPermutations3(BigInteger.TEN.pow(25)));
+    }
+
+    private static int countPermutations3(BigInteger value) {
+        if (value.bitLength() < 64) {
+            return countPermutations3(value.longValue());
+        } else {
+            while (value.testBit(0)) {
+                value = value.shiftRight(1);
+            } 
+            return countPermutations3(value.subtract(BigInteger.ONE)) + countPermutations3(value.shiftRight(1));
+        }
+    }
+
+    private static int countPermutations3(long value) {
+        while ((value & 1L) != 0) {
+            value = value >> 1;
+        }
+        if (value == 0) {
+            return 1;
+        } else {
+            return countPermutations3(value - 1) + countPermutations3(value >> 1);
+        }
     }
 
     private static int countPermutationsByBruteForce(long value) {
@@ -42,7 +67,7 @@ public class Problem169 {
         if (value.bitLength() == value.bitCount()) {
             return 1;
         } else if (value.bitCount() == 1) {
-            return value.bitLength() - 1;
+            return value.bitLength();
         } else {
             return 0;
         }
@@ -55,18 +80,21 @@ public class Problem169 {
     }
     
     private static int countPermutations(BigInteger value) {
+        if (value.equals(value.ZERO)) {
+            return 0;
+        }
         if (value.bitLength() == value.bitCount()) {
             return 1;
         } else if (value.bitCount() == 1) {
             return value.bitLength();
         } else {
             BigInteger[] splits = split(value);
-            if (splits.length == 1 || splits[1] == null) {
-                return 1;
-            }
+//            if (splits.length == 1 || splits[1] == null) {
+//                return 1;
+//            }
             int result = 0;
             result += countPermutations(splits[0]);
-            if (splits[1] != null) {
+            if (splits.length > 1 && splits[1] != null) {
                 if (splits[1].equals(value)) {
                     throw new IllegalStateException(""+value);
                 }
@@ -103,7 +131,12 @@ public class Problem169 {
         BigInteger[] result = new BigInteger[2];
         BigInteger mask = BigInteger.ONE.shiftLeft(bitLength-1);
         result[0] = value.xor(mask);
-        result[1] = value.subtract(mask.shiftRight(1));
+        BigInteger factor = mask;
+        do {
+            factor = factor.shiftRight(1);
+            result[1] = value.subtract(factor);
+            result[0] = result[0].clearBit(factor.bitLength());
+        } while (value.xor(factor).equals(result[1]));
         return result;
     }
 
