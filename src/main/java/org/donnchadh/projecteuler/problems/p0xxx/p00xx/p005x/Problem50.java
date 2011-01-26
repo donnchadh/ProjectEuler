@@ -1,16 +1,14 @@
 package org.donnchadh.projecteuler.problems.p0xxx.p00xx.p005x;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.donnchadh.projecteuler.primes.PrimeGenerator;
 
 public class Problem50 {
-    long lastSum = 0;
     long firstPrime = 2;
     long lastPrime = 2;
-    int lastCount = 0;
+    int lastCount = 1;
 
     public long findSolution(long max) {
         PrimeGenerator instance = PrimeGenerator.instance();
@@ -44,11 +42,21 @@ public class Problem50 {
     }
     
     public static void main(String[] args) {
+        problem50(1000L);
+        problem50(1000000L);
+        problem50(1000000000000L);
+    }
+
+    private static void problem50(long max) {
         long startTime = System.currentTimeMillis();
         Problem50 problem50 = new Problem50();
-        long solution = problem50.findSolution(1000000L);
-        System.out.println(solution + "("+problem50.firstPrime+" .. " + problem50.lastPrime + " "+problem50.lastCount +")");
+        long solution = problem50.findSolution(max);
+        System.out.println("Solution for " + max + ": " + solution + "("+problem50.firstPrime+" .. " + problem50.lastPrime + " "+problem50.lastCount +")");
         System.out.println("  ["+ (System.currentTimeMillis() - startTime) +" ms]");
+        verifySolution(problem50, solution);
+    }
+
+    private static void verifySolution(Problem50 problem50, long solution) {
         long sum = 0;
         int count = 0;
         for (Long prime : PrimeGenerator.instance()) {
