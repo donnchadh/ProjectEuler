@@ -60,6 +60,9 @@ public class PrimeGenerator implements Iterable<Long> {
     }
     
     public boolean isPrime(long l) {
+        if (l == 1) {
+            return false;
+        }
         if (l <= 3) {
             return true;
         }
