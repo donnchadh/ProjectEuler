@@ -67,7 +67,7 @@ public class PrimeGenerator implements Iterable<Long> {
             return true;
         }
         long midpoint = (long) Math.sqrt(l);
-        while (primes.get(primes.size() -1).longValue() < midpoint) {
+        while (primes.isEmpty() || primes.get(primes.size() -1).longValue() < midpoint) {
             nextPrime();
         }
         for (Long prime : primes) {
