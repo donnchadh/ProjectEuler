@@ -1,6 +1,6 @@
 package org.donnchadh.projecteuler.problems.p0xxx.p00xx.p003x;
 
-import org.donnchadh.projecteuler.fibonacci.utils.Combinations;
+import org.donnchadh.projecteuler.utils.Combinations;
 
 
 

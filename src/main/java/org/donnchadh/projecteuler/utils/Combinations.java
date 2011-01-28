@@ -1,4 +1,4 @@
-package org.donnchadh.projecteuler.fibonacci.utils;
+package org.donnchadh.projecteuler.utils;
 
 public class Combinations {
 
