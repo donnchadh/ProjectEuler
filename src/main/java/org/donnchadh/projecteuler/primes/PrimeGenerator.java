@@ -13,6 +13,7 @@ public class PrimeGenerator implements Iterable<Long> {
     }
     
     public java.util.Iterator<Long> primes() {
+        lastPrime = 1;
         return new java.util.Iterator<Long>() {
             
             @Override
