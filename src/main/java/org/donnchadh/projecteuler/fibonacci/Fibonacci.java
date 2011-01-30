@@ -1,5 +1,7 @@
 package org.donnchadh.projecteuler.fibonacci;
 
+import java.math.BigInteger;
+
 public class Fibonacci {
 
     static long[] cache = new long[7*12];
@@ -17,4 +19,15 @@ public class Fibonacci {
         }
     }
 
+    public static BigInteger bigFib(long n) {
+        BigInteger fm2 = BigInteger.ONE;
+        BigInteger fm1 = BigInteger.ONE;
+        BigInteger fib = BigInteger.ONE;
+        for (long i = 3; i <= n; i++) {
+            fib = fm1.add(fm2);
+            fm2 = fm1;
+            fm1 = fib;
+        }
+        return fib;
+    }
 }

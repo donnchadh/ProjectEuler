@@ -40,4 +40,16 @@ public class Combinations {
         return combinations;
     }
 
+    public static int numberOfCombinations(int n) {
+        int sum = 0;
+        long x = n;
+        long y = 1;
+        for (int i = 1; i <=n; i++) {
+            y *= i;
+            sum += x/y;
+            x*=(n-i);
+        }
+        return sum;
+    }
+
 }
