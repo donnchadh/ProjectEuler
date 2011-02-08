@@ -5,8 +5,7 @@ public class Problem15 {
         long result = 1;
         // Central Binomial Coefficient
         for (int i = 1; i <= 20; i++) {
-            result *= (4*i-2);
-            result /= i;
+            result = result*4-2*result/i;
         }
         System.out.println(result);
     }
