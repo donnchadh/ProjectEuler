@@ -1,6 +1,10 @@
 package org.donnchadh.projecteuler.problems.p0xxx.p00xx.p004x;
 
 public class Problem40 {
+    /**
+     * 
+     * Champernowne Constant
+     */
     public static void main(String[] args) {
         int result = 1;
         long j = 0;
