@@ -14,7 +14,7 @@ public class Problem51 {
                     if (!template.equals(primeString)) {
                         int count = 1;
                         for (int j = i + 1; j < 10 ; j++) {
-                            long test = Long.valueOf(template.replace('x', chars[j]));
+                            long test = Long.parseLong(template.replace('x', chars[j]));
                             if (primeGenerator.isPrime(test)) {
                                 count++;
                             }
