@@ -1,5 +1,7 @@
 package org.donnchadh.projecteuler.utils;
 
+import java.util.Arrays;
+
 public class Permutations {
     private static final int[][] EMPTY= {};
     
@@ -38,6 +40,22 @@ public class Permutations {
             }
         }
         return result;
+    }
+
+    public static boolean isPermutation(long l, long m) {
+        int[] lDigits = new int[10];
+        int[] mDigits = new int[10];
+        long x = l;
+        while (x > 0) {
+            lDigits[(int)x%10]++;
+            x /= 10;
+        }
+        x = m;
+        while (x > 0) {
+            mDigits[(int)x%10]++;
+            x /= 10;
+        }
+        return Arrays.equals(lDigits, mDigits);
     }
     
 }
