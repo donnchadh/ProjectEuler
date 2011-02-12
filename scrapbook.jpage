@@ -1,0 +1,3 @@
+new String(new byte[]{32,101},"ASCII");
+new String(new byte[]{77},"ASCII");
+new String(new byte[]{97},"ASCII");
