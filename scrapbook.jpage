@@ -1,3 +1,8 @@
 new String(new byte[]{32,101},"ASCII");
 new String(new byte[]{77},"ASCII");
 new String(new byte[]{97},"ASCII");
+
+Math.sqrt(15253545556575859L);
+Math.sqrt(15253545556575859L);
+(long)Math.sqrt(10203040506070809L);
+(long)Math.sqrt(19293949596979899L);
