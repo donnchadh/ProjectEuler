@@ -5,6 +5,10 @@ public class Problem124 {
         int count = 0;
         for (int i = 1; count <= 10000; i++) {
             int[] primeFactors = factorize(i);
+            int d = combinationsLessThan(primeFactors, 100000);
+            if (count + d >= 10000) {
+                // sort combinations to get solution = (count + d - 10000th) product of prime factors
+            }
         }
     }
 
