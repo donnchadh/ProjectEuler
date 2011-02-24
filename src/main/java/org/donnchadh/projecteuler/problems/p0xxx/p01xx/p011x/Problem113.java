@@ -1,4 +1,4 @@
-package org.donnchadh.projecteuler.problems.p0xxx.p01xx.p012x;
+package org.donnchadh.projecteuler.problems.p0xxx.p01xx.p011x;
 
 public class Problem113 {
     public static void main(String[] args) {
